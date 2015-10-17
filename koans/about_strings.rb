@@ -116,25 +116,25 @@ EOS
 
   def test_single_quotes_sometimes_interpret_escape_characters
     string = '\\\''
-    assert_equal __, string.size
-    assert_equal __, string
+    assert_equal 2, string.size
+    assert_equal "\\'", string
   end
 
   def test_double_quoted_strings_interpolate_variables
     value = 123
     string = "The value is #{value}"
-    assert_equal __, string
+    assert_equal "The value is 123", string
   end
 
   def test_single_quoted_strings_do_not_interpolate
     value = 123
     string = 'The value is #{value}'
-    assert_equal __, string
+    assert_equal "The value is \#{value}", string
   end
 
   def test_any_ruby_expression_may_be_interpolated
     string = "The square root of 5 is #{Math.sqrt(5)}"
-    assert_equal __, string
+    assert_equal "The square root of 5 is 2.23606797749979", string
   end
 
   def test_you_can_get_a_substring_from_a_string
