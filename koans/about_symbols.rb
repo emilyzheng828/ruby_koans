@@ -25,7 +25,7 @@ class AboutSymbols < Neo::Koan
 
   def test_method_names_become_symbols
     symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
-    assert_equal __, symbols_as_strings.include?("test_method_names_become_symbols")
+    assert_equal true, symbols_as_strings.include?("test_method_names_become_symbols")
   end
 
   # THINK ABOUT IT:
@@ -38,13 +38,13 @@ class AboutSymbols < Neo::Koan
     def test_constants_become_symbols
       all_symbols_as_strings = Symbol.all_symbols.map { |x| x.to_s }
 
-      assert_equal __, all_symbols_as_strings.include?(__)
+      assert_equal false, all_symbols_as_strings.include?(:RubyConstant)
     end
   end
 
   def test_symbols_can_be_made_from_strings
     string = "catsAndDogs"
-    assert_equal __, string.to_sym
+    assert_equal :catsAndDogs, string.to_sym
   end
 
   def test_symbols_with_spaces_can_be_built
