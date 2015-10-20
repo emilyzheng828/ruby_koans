@@ -120,7 +120,7 @@ class AboutMethods < Neo::Koan
     exception = assert_raise(AboutMethods) do
       self.my_private_method
     end
-    assert_match /__/, exception.message
+    assert_match /"wrong"/, exception.message
   end
 
   # ------------------------------------------------------------------
