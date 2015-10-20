@@ -117,10 +117,10 @@ class AboutMethods < Neo::Koan
   end
 
   def test_calling_private_methods_with_an_explicit_receiver
-    exception = assert_raise(AboutMethods) do
+    exception = assert_raise(NoMethodError) do
       self.my_private_method
     end
-    assert_match /"wrong"/, exception.message
+    assert_match /private/, exception.message
   end
 
   # ------------------------------------------------------------------
@@ -139,12 +139,12 @@ class AboutMethods < Neo::Koan
 
   def test_calling_methods_in_other_objects_require_explicit_receiver
     rover = Dog.new
-    assert_equal __, rover.name
+    assert_equal "Fido", rover.name
   end
 
   def test_calling_private_methods_in_other_objects
     rover = Dog.new
-    assert_raise(___) do
+    assert_raise(NameError) do
       rover.tail
     end
   end
