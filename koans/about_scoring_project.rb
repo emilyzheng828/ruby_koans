@@ -30,24 +30,30 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
-  a = 50*dice.count(5)+100*dice.count(1)
-  return 0 if dice.empty? 
-  return 1000+100*(dice.count(1)-3)+50*dice.count(5) if dice.count(1)>=3
-  
-  if dice.count(2) < 3 and dice.count(3)<3 and dice.count(4)<3 and dice.count(6)<3
-      return 50*dice.count(5)+100*dice.count(1) if dice.count(5)<3 and dice.include?5 or dice.include?1
+  score_mapping = {
+    1 => 100,
+    5 => 50
+  }
+  total = 0
+  return total if dice.empty?
+  dice_count = (1..6).reduce({}) do |memo, die|
+    memo[die] = dice.count(die)
+    memo
   end
-  
-  return 2*100 + a if dice.count(2)>=3   
-  return 3*100 + a if dice.count(3)>=3
-  return 4*100 + a if dice.count(4)>=3
-  return 5*100 + 50*(dice.count(5)-3)+100*dice.count(1) if dice.count(5)>=3
-  return 6*100 + a if dice.count(6)>=3
-
-  return 0
-
-  
+  (1..6).each do |die|
+    if dice_count[die] >= 3
+      if die == 1
+        total += 1000
+      else
+        total += 100 * die 
+      end
+      dice_count[die] -= 3
+    end
+  end
+  [1, 5].each do |die|
+    total += score_mapping[die] * dice_count[die]
+  end
+  total
 end
 
 
